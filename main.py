@@ -18,12 +18,18 @@ MATRIX_ROW = 3
 
 matrix = [[0 for x in range(MATRIX_COL)] for x in range(MATRIX_ROW)]
 matrix[0][0] = [0, False, False, False, "You have reached the first cave. This cave is said to be 9,999,999,999,999 eons old.", [1, 3]]
-matrix[0][1] = [1, False, True, False, "Grand Duke Franz Ferdinand once walked this floor.", [2, 4, 0]]
+matrix[0][1] = [1, False, False, False, "Grand Duke Franz Ferdinand once walked this floor.", [2, 4, 0]]
 matrix[0][2] = [2, True, False, False, "This is the largest of the caves with 3 square acres of space.", [5, 1]]
 matrix[1][0] = [3, False, False, False, "George washington discovered thorium here.", [4, 6, 0]]
+matrix[1][1] = [4, False, False, False, "This is the smallest of of the wumpus's caves, at one cubic nanometer", [5, 7, 3, 1]]
+matrix[1][2] = [5, False, False, False, "This is the cave where the fountain of youth is said to be. (you notice a fountain but don't drink from it, knowing it was poisened by the wumpus many years ago", [8, 4, 2]]
+matrix[2][0] = [6, False, True, False, "You notice a large sign saying 這是你死的地方 and you do not know what that means.", [7, 3]]
+matrix[2][1] = [7, False, False, True, "If you're not dead, the wumpus must be on vacation and you win. Otherwise you lose.", [8, 6, 4]]
+matrix[2][2] = [8, False, False, False, "In this cave lies your worst nightmare, a retail store where there is no one to help you and you can't find anything. Get out quick, you think you see a salesperson coming.", [7, 5]]
+#matrix[x][y] = [num, bat, pit, wumpus, text, [connections]]
 #cave 7 has wumpus
-
-print(matrix)
+#cave 6 has pit
+#cave 3 has bat
 
 print("""
 YOU ARE A FAMOUS HUNTER DESCENDING DOWN INTO THE CAVES OF DARKNESS,
@@ -81,6 +87,8 @@ EXTINGUISH THE LIGHTS SIMPLY TYPE 'LIGHTS OFF'.
 
                 GOOD LUCK HUNTING!!
                 """)
+
+print(matrix)
 
 while True:
     decision()
