@@ -1,6 +1,8 @@
-def move(cave, currentCaveX, currentCaveY):
+def move(currentCaveX, currentCaveY, connections):
+  
+    cave = input("which cave do you want to move to?")
 
-    print("you  moved " + str(cave))
+    print("you  moved to cave " + str(cave))
     
     
     if cave == "north":
@@ -31,10 +33,9 @@ def decision(currentCaveX, currentCaveY):
 
     if Q == "m":
 
-        direction = input("which direction?").lower
       
 
-        move(direction, currentCaveX, currentCaveY)
+        move(currentCaveX, currentCaveY, matrix[currentCaveX][currentCaveY][5])
 
     elif Q == "s":
 
