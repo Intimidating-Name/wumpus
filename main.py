@@ -1,20 +1,38 @@
 def move(currentCaveX, currentCaveY, connections):
-  
+
     cave = input("which cave do you want to move to?")
 
     print("you  moved to cave " + str(cave))
-    
-    
-    if cave == "north":
-      currentCaveY += 1
-    elif cave == "east":
-      currentCaveX += 1
-    elif cave == "west":
-      currentCaveX -= 1
-    elif cave == "south":
-      currentCaveY -= 1
-    else:
-      print("sorry. i couldn't understand you. game over.")
+
+
+    if cave == 0:
+        currentCaveX = 0
+        currentCaveY = 0
+    elif cave == 1:
+        currentCaveX = 0
+        currentCaveY = 1
+    elif cave == 2:
+        currentCaveX = 0
+        currentCaveY = 2
+    elif cave == 3:
+        currentCaveX = 1
+        currentCaveY = 0
+    elif cave == 4:
+        currentCaveX = 1
+        currentCaveY = 1
+    elif cave == 5:
+        currentCaveX = 1
+        currentCaveY = 2
+    elif cave == 6:
+        currentCaveX = 2
+        currentCaveY = 0
+    elif cave == 7:
+        currentCaveX = 2
+        currentCaveY = 1
+    elif cave == 8:
+        currentCaveX = 2
+        currentCaveY = 2
+
 
 
 def shoot():
@@ -24,7 +42,7 @@ def shoot():
 
 
 def decision(currentCaveX, currentCaveY):
-  
+
     print("Your are currently in cave " + str(matrix[currentCaveX][currentCaveY][0]))
     print(matrix[currentCaveX][currentCaveY][4])
     print("you can go to caves " + str(matrix[currentCaveX][currentCaveY][5]) + " from here")
@@ -33,7 +51,7 @@ def decision(currentCaveX, currentCaveY):
 
     if Q == "m":
 
-      
+
 
         move(currentCaveX, currentCaveY, matrix[currentCaveX][currentCaveY][5])
 
@@ -86,115 +104,50 @@ currentCaveY = 0
 
 
 print("""
-
 YOU ARE A FAMOUS HUNTER DESCENDING DOWN INTO THE CAVES OF DARKNESS,
-
 LAIR OF THE INFAMOUS MAN-EATING WUMPUS.  YOU ARE EQUIPPED WITH FIVE
-
 BENT ARROWS, AND ALL YOUR SENSES.  THERE ARE TWENTY CAVES CONNECTED
-
 BY TUNNELS, AND THERE ARE TWO OTHER KINDS OF HAZARDS:
-
-
-
         A) PITS, WHICH ARE BOTTOMLESS, AND USUALLY FATAL TO FALL
-
         INTO.  THERE ARE THREE SUCH PITS IN THE NETWORK.
-
-
-
         B) SUPER-BATS, WHICH IF YOU STUMBLE INTO THEIR ROOM WILL
-
         PICK YOU UP AND DROP YOU IN SOME RANDOM ROOM IN THE NETWORK.
-
         YOU MAY SHOOT SUPER-BATS, THERE IS ONE IN EACH OF THREE OR
-
         FOUR ROOMS WITHIN THE NETWORK.  THE SUPER-BATS GENERALLY STAY
-
         IN THEIR OWN ROOMS, EXCEPT WHEN DISPOSING OF INTRUDERS OR
-
         SCAVENGING FOR FOOD IN THE PITS.
-
-
-
 IF YOU BLUNDER INTO THE SAME ROOM AS THE WUMPUS, YOU LOSE....
-
 THE NORMALLY SLEEPING WUMPUS DOES NOT MOVE (HAVING GORGED HIMSELF UPON
-
 A PREVIOUS HUNTER).  HOWEVER SEVERAL THINGS CAN WAKE HIM UP:
-
-
-
         1) WALKING INTO HIS ROOM,
-
         2) SHOOTING AN ARROW ANYWHERE IN THE NETWORK,
-
         3) TRIPPING OVER DEBRIS (CLUMSINESS),
-
         4) TURNING ON THE LIGHTS, IN ORDER TO SEE WHERE YOU ARE
-
         HEADED.
-
-
-
 IF HE WAKES UP THERE'S A POSSIBILITY HE WILL MOVE, HOWEVER, HE'S TOO
-
 LAZY TO MOVE MORE THAN ONE ROOM BETWEEN SNOOZES.  THE WUMPUS IS TOO
-
 BIG TO BE PICKED UP BY SUPER-BATS AND HAS SUCKER FEET, SO HE DOESN'T
-
 FALL INTO THE PITS.
-
-
-
 YOU CAN SMELL THE WUMPUS FROM ONE OR TWO ROOMS AWAY.  YOU WILL
-
 TREMBLE WITH FEAR WHEN HE MOVES ABOUT.  YOU CAN HEAR SUPER-BATS FROM
-
 ONE ROOM AWAY, AND FEEL DRAFTS (FROM BOTTOMLESS PITS) FROM ONE ROOM
-
 AWAY (AND TASTE THE FEAR...).
-
-
-
 TO SHOOT AN ARROW TYPE 'SHOOT' INSTEAD OF A MOVE, AND THEN
-
 SPECIFY WHICH ROOMS THE ARROW SHOULD PASS THROUGH.  YOU ARE STRONG
-
 ENOUGH TO SHOOT IT THROUGH AS MANY AS FIVE ROOMS.  BENT ARROWS HAVE
-
 NO PROBLEM ROUNDING CORNERS OF LESS THAN 743 DEGREES.  IF YOU
-
 SPECIFY AN IMPOSSIBLE PATH THE ARROW WILL RICOCHET OFF THE WALLS OF
-
 THE ROOM, LOSING SPEED, AND WILL EVENTUALLY COME TO REST IN ONE OF
-
 THE ADJOINING ROOMS.  THE PATH MAY BE TERMINATED BY SPECIFYING ROOM 0.
-
-
-
 EACH ROOM IS CONNECTED TO THREE OTHER ROOMS BY THREE TUNNELS A, B
-
 AND C.  YOU MUST ALWAYS MOVE BETWEEN ROOMS BY SPECIFYING WHICH
-
 TUNNEL YOU WISH TO EXPLORE.  YOU CAN ALWAYS RETRACE YOUR FOOT STEPS
-
 BY MOVING BACK USING THE SAME TUNNEL DESIGNATOR.
-
-
-
 IF YOU WISH TO SEE WHICH ROOMS ARE AT THE ENDS OF THE TUNNELS YOU
-
 MAY TYPE 'LIGHTS ON' INSTEAD OF A MOVE.  THIS MAY BE AN UNHEALTHY
-
 LUXURY HOWEVER BECAUSE THE LIGHT GIVES THE WUMPUS INSOMNIA.  TO
-
 EXTINGUISH THE LIGHTS SIMPLY TYPE 'LIGHTS OFF'.
-
-
-
                 GOOD LUCK HUNTING!!
-
                 """)
 
 
