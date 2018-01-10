@@ -32,6 +32,26 @@ def move(currentCaveX, currentCaveY, connections):
     elif cave == 8:
         currentCaveX = 2
         currentCaveY = 2
+       
+#maybe this could also work
+
+#if cave == 0 or 1 or 2:
+ # currentCaveX = 0
+#elif cave == 3 or 4 or 5:
+ # currentCaveX = 1
+#elif cave == 6 or 7 or 8:
+ # currentCaveX = 2
+#else:
+ # print("invalid move")
+  
+#if cave == 0 or 3 or 6:
+ # currentCaveY = 0
+#elif cave == 1 or 4 or 7:
+ # currentCaveY = 1
+#elif cave == 2 or 5 or 8:
+ # currentCaveY = 2
+#else:
+ # print("invalid move")
 
 
 
