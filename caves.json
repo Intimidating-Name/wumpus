@@ -1,0 +1,28 @@
+[
+  [false, false, false, "You have reached the first cave. This cave is said to be 9,999,999,999,999 eons old.", [1, 5, 20, 4]],
+  [true, false, false, "Grand Duke Franz Ferdinand once walked this floor.", [2, 6, 0, 21]],
+  [false, false, false, "This is the largest of the caves with 3 square acres of space.", [3, 7, 1, 22]],
+  [false, false, false, "George washington discovered thorium here.", [4, 8, 2, 23]],
+  [false, false, false, "This is the smallest of of the wumpus's caves, at one cubic nanometer", [9, 3, 24, 0]],
+  [false, false, false, "This is the cave where the fountain of youth is said to be. (you notice a fountain but don't drink from it, knowing it was poisened by the wumpus many years ago", [0, 6, 10, 9]],
+  [false, false, false, "You notice a large sign saying 這是你死的地方 and you do not know what that means.", [1, 7, 11, 5]],
+  [false, false, false, "If the wumpus must be on vacation and you win. Ever think about that?", [2, 8, 12, 6]],
+  [false, true, false, "In this cave lies your worst nightmare, a retail store where there is no one to help you and you can't find anything. Get out quick, you think you see a salesperson coming.", [3, 9, 13, 7]],
+  [false, false, false, "This cave was where Scrooge McDuck found his first treasure.", [4, 14, 8, 5]],
+  [false, false, false, "This cave is full of life-sized teddy bears.", [5, 11, 15, 14]],
+  [false, false, false, "There is nothing in this cave. It is a vacuum.", [6, 12, 16, 10]],
+  [false, false, false, "This cave has argueing politicians. You hate it. The noise is driving you crazy.", [7, 13, 17, 11]],
+  [false, false, false, "You have reached the thirteenth cave, the cave of luck, good and bad.", [8, 14, 18, 12]],
+  [false, false, false, "This cave has a game show host who will not let you leave until you tell him the nationality of Nikola Tesla.", [9, 19, 13, 10]],
+  [true, false, false, "This cave is filled with monotonous teachers. Turn to page 394.", [10, 16, 20, 19]],
+  [false, false, false, "This is the cave of fandom. You meet your favorite celebrity here.", [11, 17, 21, 15]],
+  [false, false, false, "This cave has musical codes for the doors. You regret quiting those music lessons.", [12, 18, 22, 16]],
+  [false, false, false, "In this cave lies the grave of Algernon the mouse. Did you bring your flowers?", [13, 19, 23, 17]],
+  [false, false, true, "Consider this confirmation that you are not illiterate.", [14, 24, 18, 15]],
+  [false, false, false, "You have reached the cave of spoilers. Quick, cover your ears.", [15, 21, 0, 24]],
+  [false, false, false, "This cave has no hazards. You are safe in here.", [16, 22, 20, 1]],
+  [false, false, false, "You think the wumpus is scared of you and you feel bad.", [17, 23, 21, 2]],
+  [false, false, false, "You pull out your ocarina and play a little tune. You like it.", [18, 24, 22, 3]],
+  [false, false, false, "You are in the last of the caves. This one is the newest, being just created.", [19, 23, 20, 4]]
+]
+

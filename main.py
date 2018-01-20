@@ -1,3 +1,7 @@
+import json
+from pprint import pprint
+import winsound
+
 def move(connections):
     global currCaveNum
     move_to = int(input("which cave do you want to move to?"))
@@ -37,33 +41,9 @@ def decision():
 
         print("sorry I couldn't understand you. game over")
 
-caves = []
+caves = json.load(open("caves.json", "r"))
 
-caves.append([False, False, False, "You have reached the first cave. This cave is said to be 9,999,999,999,999 eons old.", [1, 5, 20, 4]])
-caves.append([True, False, False, "Grand Duke Franz Ferdinand once walked this floor.", [2, 6, 0, 21]])
-caves.append([False, False, False, "This is the largest of the caves with 3 square acres of space.", [3, 7, 1, 22]])
-caves.append([False, False, False, "George washington discovered thorium here.", [4, 8, 2, 23]])
-caves.append([False, False, False, "This is the smallest of of the wumpus's caves, at one cubic nanometer", [9, 3, 24, 0]])
-caves.append([False, False, False, "This is the cave where the fountain of youth is said to be. (you notice a fountain but don't drink from it, knowing it was poisened by the wumpus many years ago", [0, 6, 10, 9]])
-caves.append([False, False, False, "You notice a large sign saying 這是你死的地方 and you do not know what that means.", [1, 7, 11, 5]])
-caves.append([False, False, False, "If the wumpus must be on vacation and you win. Ever think about that?", [2, 8, 12, 6]])
-caves.append([False, True, False, "In this cave lies your worst nightmare, a retail store where there is no one to help you and you can't find anything. Get out quick, you think you see a salesperson coming.", [3, 9, 13, 7]])
-caves.append([False, False, False, "This cave was where Scrooge McDuck found his first treasure.", [4, 14, 8, 5]])
-caves.append([False, False, False, "This cave is full of life-sized teddy bears.", [5, 11, 15, 14]])
-caves.append([False, False, False, "There is nothing in this cave. It is a vacuum.", [6, 12, 16, 10]])
-caves.append([False, False, False, "This cave has argueing politicians. You hate it. The noise is driving you crazy.", [7, 13, 17, 11]])
-caves.append([False, False, False, "You have reached the thirteenth cave, the cave of luck, good and bad.", [8, 14, 18, 12]])
-caves.append([False, False, False, "This cave has a game show host who will not let you leave until you tell him the nationality of Nikola Tesla.", [9, 19, 13, 10]])
-caves.append([True, False, False, "This cave is filled with monotonous teachers. Turn to page 394.", [10, 16, 20, 19]])
-caves.append([False, False, False, "This is the cave of fandom. You meet your favorite celebrity here.", [11, 17, 21, 15]])
-caves.append([False, False, False, "This cave has musical codes for the doors. You regret quiting those music lessons.", [12, 18, 22, 16]])
-caves.append([False, False, False, "In this cave lies the grave of Algernon the mouse. Did you bring your flowers?", [13, 19, 23, 17]])
-caves.append([False, False, True, "Consider this confirmation that you are not illiterate.", [14, 24, 18, 15]])
-caves.append([False, False, False, "You have reached the cave of spoilers. Quick, cover your ears.", [15, 21, 0, 24]])
-caves.append([False, False, False, "This cave has no hazards. You are safe in here.", [16, 22, 20, 1]])
-caves.append([False, False, False, "You think the wumpus is scared of you and you feel bad.", [17, 23, 21, 2]])
-caves.append([False, False, False, "You pull out your ocarina and play a little tune. You like it.", [18, 24, 22, 3]])
-caves.append([False, False, False, "You are in the last of the caves. This one is the newest, being just created.", [19, 23, 20, 4]])
+pprint(caves)
 
 #caves.append = [bat, pit, wumpus, text, [connections]]
 
@@ -76,6 +56,8 @@ caves.append([False, False, False, "You are in the last of the caves. This one i
 #cave 15 has bats
 
 currCaveNum = 0
+
+winsound.PlaySound("intro wind sound.wav", winsound.SND_FILENAME | winsound.SND_ASYNC)
 
 
 print("""
@@ -130,3 +112,5 @@ EXTINGUISH THE LIGHTS SIMPLY TYPE 'LIGHTS OFF'.
 while True:
 
     decision()
+
+
