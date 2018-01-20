@@ -52,7 +52,7 @@ caves.append([False, False, False, "This cave was where Scrooge McDuck found his
 caves.append([False, False, False, "This cave is full of life-sized teddy bears.", [5, 11, 15, 14]])
 caves.append([False, False, False, "There is nothing in this cave. It is a vacuum.", [6, 12, 16, 10]])
 caves.append([False, False, False, "This cave has argueing politicians. You hate it. The noise is driving you crazy.", [7, 13, 17, 11]])
-caves.append([False, False, False, "You have reached the thirteenth cave, the cave of luck,good and bad.", [8, 14, 18, 12]])
+caves.append([False, False, False, "You have reached the thirteenth cave, the cave of luck, good and bad.", [8, 14, 18, 12]])
 caves.append([False, False, False, "This cave has a game show host who will not let you leave until you tell him the nationality of Nikola Tesla.", [9, 19, 13, 10]])
 caves.append([True, False, False, "This cave is filled with monotonous teachers. Turn to page 394.", [10, 16, 20, 19]])
 caves.append([False, False, False, "This is the cave of fandom. You meet your favorite celebrity here.", [11, 17, 21, 15]])
