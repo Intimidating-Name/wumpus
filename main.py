@@ -4,11 +4,19 @@ import winsound
 
 def move(connections):
     global currCaveNum
+    global caves
+    global alive
     move_to = int(input("which cave do you want to move to?"))
-
+    winsound.PlaySound(caves[move_to][5], winsound.SND_FILENAME | winsound.SND_ASYNC)
     if move_to in connections:
         print("you  moved to cave " + str(move_to))
         currCaveNum = move_to
+        if caves[currCaveNum][1] is True:
+            print("You fell into the bottomless pit.")
+            alive = False
+        if caves[currCaveNum][2]:
+            print("Before you die, you think you hear the wumpus burp. What bad manners it has.")
+            alive = False
     else:
        print("You cannot go there")
 
@@ -57,7 +65,7 @@ pprint(caves)
 
 currCaveNum = 0
 
-winsound.PlaySound("intro wind sound.wav", winsound.SND_FILENAME | winsound.SND_ASYNC)
+
 
 
 print("""
@@ -107,9 +115,9 @@ EXTINGUISH THE LIGHTS SIMPLY TYPE 'LIGHTS OFF'.
                 GOOD LUCK HUNTING!!
                 """)
 
+alive = True
 
-
-while True:
+while alive is True:
 
     decision()
 
