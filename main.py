@@ -1,36 +1,63 @@
 import json
 from pprint import pprint
 import winsound
+from random import randint
 
 def move(connections):
     global currCaveNum
     global caves
     global alive
-    move_to = int(input("which cave do you want to move to?"))
+    move_to = int(input("Which cave do you want to move to?"))
     winsound.PlaySound(caves[move_to][5], winsound.SND_FILENAME | winsound.SND_ASYNC)
     if move_to in connections:
         print("you  moved to cave " + str(move_to))
         currCaveNum = move_to
-        if caves[currCaveNum][1] is True:
+        if caves[currCaveNum][1]:
             print("You fell into the bottomless pit.")
             alive = False
         if caves[currCaveNum][2]:
             print("Before you die, you think you hear the wumpus burp. What bad manners it has.")
             alive = False
+        if caves[currCaveNum][0]:
+            print("This cave has bats. You are now going to be carried to a random, safe cave.")
+            currCaveNum = random_cave()
     else:
        print("You cannot go there")
 
-def shoot():
+def shoot(connections, caves):
+    shoot_to = int(input("Which cave do you want to shoot to?"))
+    if shoot_to not in connections:
+        print("You cannot shoot there. Try again")
+        shoot(caves[currCaveNum][4], caves)
+    if caves[shoot_to][2]:
+        print("You shot the wumpus! You quickly escape and win.")
+        caves[shoot_to][2] = False
+    if caves[shoot_to][0]:
+        print("You shot a bat and feel really bad. You promise to plan the funeral as soon as you kill the wumpus.")
+        caves[shoot_to][0] = False
 
-    print("you shot")
 
+def random_cave():
+    safeRandomCaveNumber = randint(0, 24)
+    while 19 == safeRandomCaveNumber or 8 == safeRandomCaveNumber or 1 == safeRandomCaveNumber or 15 == safeRandomCaveNumber:
+        safeRandomCaveNumber = randint(0, 24)
+    return safeRandomCaveNumber
 
+def warnings(connections, caves):
+    for caveNum in connections:
+        if caves[caveNum][0]:
+            print("You hear bat's wings flapping.")
+        if caves[caveNum][1]:
+            print("You feel the pit's breeze.")
+        if caves[caveNum][2]:
+            print("You smell the wumpus.")
 
 def decision():
     global caves
     global currCaveNum
     print("You are currently in cave " + str(currCaveNum))
     print(caves[currCaveNum][3])
+    warnings(caves[currCaveNum][4], caves)
     print("you can go to caves " + str(caves[currCaveNum][4]) + " from here")
 
     Q = input("move or shoot? (type m for move and s for shoot)").lower()
@@ -43,7 +70,7 @@ def decision():
 
     elif Q == "s":
 
-        shoot()
+        shoot(caves[currCaveNum][4], caves)
 
     else:
 
@@ -117,7 +144,7 @@ EXTINGUISH THE LIGHTS SIMPLY TYPE 'LIGHTS OFF'.
 
 alive = True
 
-while alive is True:
+while alive and caves[19][2]:
 
     decision()
 
