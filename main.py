@@ -2,44 +2,70 @@ import json
 from pprint import pprint
 import winsound
 from random import randint
+from pyfiglet import Figlet
+
+def initial_state():
+    global caves
+    global current_cave
+    global alive
+    global playing
+    global wumpus_cave
+    global wumpus_alive
+    caves = json.load(open("caves.json", "r"))
+    current_cave = 0
+    alive = True
+    playing = True
+    wumpus_cave = random_cave()
+    wumpus_alive = True
 
 def move(connections):
-    global currCaveNum
+    global current_cave
     global caves
     global alive
+    global wumpus_cave
     move_to = int(input("Which cave do you want to move to?"))
     winsound.PlaySound(caves[move_to][5], winsound.SND_FILENAME | winsound.SND_ASYNC)
     if move_to in connections:
         print("you  moved to cave " + str(move_to))
-        currCaveNum = move_to
-        if caves[currCaveNum][1]:
+        current_cave = move_to
+        if caves[current_cave][1]:
             print("You fell into the bottomless pit.")
             alive = False
-        if caves[currCaveNum][2]:
+        if caves[current_cave][2]:
             print("Before you die, you think you hear the wumpus burp. What bad manners it has.")
             alive = False
-        if caves[currCaveNum][0]:
+        if caves[current_cave][0]:
             print("This cave has bats. You are now going to be carried to a random, safe cave.")
-            currCaveNum = random_cave()
+            current_cave = random_cave()
     else:
-       print("You cannot go there")
+        print("You bump into a wall and hear the wumpus move 1 room.")
+        wumpus_cave = random_tunnel(connections)
 
 def shoot(connections, caves):
+    global wumpus_alive
     shoot_to = int(input("Which cave do you want to shoot to?"))
     if shoot_to not in connections:
         print("You cannot shoot there. Try again")
-        shoot(caves[currCaveNum][4], caves)
-    if caves[shoot_to][2]:
+        shoot(caves[current_cave][4], caves)
+    if caves[wumpus_cave][2]:
         print("You shot the wumpus! You quickly escape and win.")
-        caves[shoot_to][2] = False
+        wumpus_alive = False
     if caves[shoot_to][0]:
         print("You shot a bat and feel really bad. You promise to plan the funeral as soon as you kill the wumpus.")
         caves[shoot_to][0] = False
 
+def random_tunnel(connections):
+    chosen = randint(0, 3)
+    while connections[chosen] == 8 or connections[chosen] == 1 or connections[chosen] == 15:
+        chosen = randint(0, 3)
+    return connections[chosen]
+
+
 
 def random_cave():
+    global wumpus_cave
     safeRandomCaveNumber = randint(0, 24)
-    while 19 == safeRandomCaveNumber or 8 == safeRandomCaveNumber or 1 == safeRandomCaveNumber or 15 == safeRandomCaveNumber:
+    while wumpus_cave == safeRandomCaveNumber or 8 == safeRandomCaveNumber or 1 == safeRandomCaveNumber or 15 == safeRandomCaveNumber:
         safeRandomCaveNumber = randint(0, 24)
     return safeRandomCaveNumber
 
@@ -54,11 +80,11 @@ def warnings(connections, caves):
 
 def decision():
     global caves
-    global currCaveNum
-    print("You are currently in cave " + str(currCaveNum))
-    print(caves[currCaveNum][3])
-    warnings(caves[currCaveNum][4], caves)
-    print("you can go to caves " + str(caves[currCaveNum][4]) + " from here")
+    global current_cave
+    print("You are currently in cave " + str(current_cave))
+    print(caves[current_cave][3])
+    warnings(caves[current_cave][4], caves)
+    print("you can go to caves " + str(caves[current_cave][4]) + " from here")
 
     Q = input("move or shoot? (type m for move and s for shoot)").lower()
 
@@ -66,19 +92,19 @@ def decision():
 
 
 
-        move(caves[currCaveNum][4])
+        move(caves[current_cave][4])
 
     elif Q == "s":
 
-        shoot(caves[currCaveNum][4], caves)
+        shoot(caves[current_cave][4], caves)
 
     else:
 
         print("sorry I couldn't understand you. game over")
 
-caves = json.load(open("caves.json", "r"))
 
-pprint(caves)
+
+#pprint(caves)
 
 #caves.append = [bat, pit, wumpus, text, [connections]]
 
@@ -90,10 +116,8 @@ pprint(caves)
               
 #cave 15 has bats
 
-currCaveNum = 0
-
-
-
+f = Figlet(font = 'doh', width = 180)
+print(f.renderText('HUNT THE WUMPUS'))
 
 print("""
 YOU ARE A FAMOUS HUNTER DESCENDING DOWN INTO THE CAVES OF DARKNESS,
@@ -114,38 +138,40 @@ A PREVIOUS HUNTER).  HOWEVER SEVERAL THINGS CAN WAKE HIM UP:
         1) WALKING INTO HIS ROOM,
         2) SHOOTING AN ARROW ANYWHERE IN THE NETWORK,
         3) TRIPPING OVER DEBRIS (CLUMSINESS),
-        4) TURNING ON THE LIGHTS, IN ORDER TO SEE WHERE YOU ARE
-        HEADED.
-IF HE WAKES UP THERE'S A POSSIBILITY HE WILL MOVE, HOWEVER, HE'S TOO
-LAZY TO MOVE MORE THAN ONE ROOM BETWEEN SNOOZES.  THE WUMPUS IS TOO
-BIG TO BE PICKED UP BY SUPER-BATS AND HAS SUCKER FEET, SO HE DOESN'T
+THE WUMPUS IS TOOBIG TO BE PICKED UP BY SUPER-BATS AND HAS SUCKER FEET, SO HE DOESN'T
 FALL INTO THE PITS.
 YOU CAN SMELL THE WUMPUS FROM ONE ROOM AWAY.  YOU WILL
 TREMBLE WITH FEAR WHEN HE MOVES ABOUT.  YOU CAN HEAR SUPER-BATS FROM
 ONE ROOM AWAY, AND FEEL DRAFTS (FROM BOTTOMLESS PITS) FROM ONE ROOM
-AWAY (AND TASTE THE FEAR...).
-TO SHOOT AN ARROW TYPE 'SHOOT' INSTEAD OF A MOVE, AND THEN
-SPECIFY WHICH ROOMS THE ARROW SHOULD PASS THROUGH.  YOU ARE STRONG
-ENOUGH TO SHOOT IT THROUGH AS MANY AS ONE ROOM.  BENT ARROWS HAVE
-NO PROBLEM ROUNDING CORNERS OF LESS THAN 743 DEGREES.  IF YOU
+AWAY.
+TO SHOOT AN ARROW TYPE 's' INSTEAD OF A MOVE, AND THEN
+SPECIFY WHICH ROOM THE ARROW SHOULD PASS THROUGH.  YOU ARE STRONG
+ENOUGH TO SHOOT IT THROUGH ONE ROOM. IF YOU
 SPECIFY AN IMPOSSIBLE PATH THE ARROW WILL RICOCHET OFF THE WALLS OF
 THE ROOM, LOSING SPEED, AND WILL EVENTUALLY COME TO REST IN ONE OF
 THE ADJOINING ROOMS.  THE PATH MAY BE TERMINATED BY SPECIFYING ROOM 0.
-EACH ROOM IS CONNECTED TO THREE OTHER ROOMS BY THREE TUNNELS A, B
-AND C.  YOU MUST ALWAYS MOVE BETWEEN ROOMS BY SPECIFYING WHICH
+EACH ROOM IS CONNECTED TO FOUR OTHER ROOMS BY FOUR TUNNELS.  
+YOU MUST ALWAYS MOVE BETWEEN ROOMS BY SPECIFYING WHICH
 TUNNEL YOU WISH TO EXPLORE.  YOU CAN ALWAYS RETRACE YOUR FOOT STEPS
 BY MOVING BACK USING THE SAME TUNNEL DESIGNATOR.
-IF YOU WISH TO SEE WHICH ROOMS ARE AT THE ENDS OF THE TUNNELS YOU
-MAY TYPE 'LIGHTS ON' INSTEAD OF A MOVE.  THIS MAY BE AN UNHEALTHY
-LUXURY HOWEVER BECAUSE THE LIGHT GIVES THE WUMPUS INSOMNIA.  TO
-EXTINGUISH THE LIGHTS SIMPLY TYPE 'LIGHTS OFF'.
                 GOOD LUCK HUNTING!!
                 """)
+alive = None
+playing = None
+current_cave = None
+caves = None
+wumpus_cave = None
+wumpus_alive = None
 
-alive = True
+initial_state()
+print(alive, playing, current_cave, wumpus_cave, caves[wumpus_cave][2])
 
-while alive and caves[19][2]:
+while alive and playing and caves[wumpus_cave][2]:
 
     decision()
-
-
+    if alive == False or caves[wumpus_cave][2] == False:
+       play_again = input("Do you want to play again?")
+       if play_again.lower() == "no":
+           playing = False
+       else:
+           initial_state()
