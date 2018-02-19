@@ -4,25 +4,21 @@ import winsound
 from random import randint
 from pyfiglet import Figlet
 
-def initial_state():
-    global caves
-    global current_cave
-    global alive
-    global playing
-    global wumpus_cave
-    global wumpus_alive
+def initial_state(caves, current_cave, alive, playing, wumpus_cave, wumpus_alive):
     caves = json.load(open("caves.json", "r"))
     current_cave = 0
     alive = True
     playing = True
-    wumpus_cave = random_cave()
+    wumpus_cave = random_cave(wumpus_cave)
     wumpus_alive = True
+    return caves
+    return current_cave
+    return alive
+    return playing
+    return wumpus_cave
+    return wumpus_alive
 
-def move(connections):
-    global current_cave
-    global caves
-    global alive
-    global wumpus_cave
+def move(connections, current_cave, alive, wumpus_cave):
     move_to = int(input("Which cave do you want to move to?"))
     winsound.PlaySound(caves[move_to][5], winsound.SND_FILENAME | winsound.SND_ASYNC)
     if move_to in connections:
@@ -36,13 +32,15 @@ def move(connections):
             alive = False
         if caves[current_cave][0]:
             print("This cave has bats. You are now going to be carried to a random, safe cave.")
-            current_cave = random_cave()
+            current_cave = random_cave(wumpus_cave)
     else:
         print("You bump into a wall and hear the wumpus move 1 room.")
         wumpus_cave = random_tunnel(connections)
+    return current_cave
+    return alive
+    return wumpus_cave
 
-def shoot(connections, caves):
-    global wumpus_alive
+def shoot(connections, caves, wumpus_alive)
     shoot_to = int(input("Which cave do you want to shoot to?"))
     if shoot_to not in connections:
         print("You cannot shoot there. Try again")
@@ -53,6 +51,8 @@ def shoot(connections, caves):
     if caves[shoot_to][0]:
         print("You shot a bat and feel really bad. You promise to plan the funeral as soon as you kill the wumpus.")
         caves[shoot_to][0] = False
+        return caves
+        return wumpus_alive
 
 def random_tunnel(connections):
     chosen = randint(0, 3)
@@ -62,7 +62,7 @@ def random_tunnel(connections):
 
 
 
-def random_cave():
+def random_cave(wumpus_cave)
     global wumpus_cave
     safeRandomCaveNumber = randint(0, 24)
     while wumpus_cave == safeRandomCaveNumber or 8 == safeRandomCaveNumber or 1 == safeRandomCaveNumber or 15 == safeRandomCaveNumber:
@@ -78,9 +78,7 @@ def warnings(connections, caves):
         if caves[caveNum][2]:
             print("You smell the wumpus.")
 
-def decision():
-    global caves
-    global current_cave
+def decision(caves, current_cave, alive, wumpus_cave, wumpus_alive)
     print("You are currently in cave " + str(current_cave))
     print(caves[current_cave][3])
     warnings(caves[current_cave][4], caves)
@@ -90,17 +88,20 @@ def decision():
 
     if Q == "m":
 
-
-
-        move(caves[current_cave][4])
+        move(caves[current_cave][4], current_cave, alive, wumpus_cave)
 
     elif Q == "s":
 
-        shoot(caves[current_cave][4], caves)
+        shoot(caves[current_cave][4], caves, wumpus_alive)
 
     else:
 
-        print("sorry I couldn't understand you. game over")
+        print("Sorry, I couldn't understand you.")
+    return caves
+    return current_cave
+    return alive
+    return wumpus_cave
+    return wumpus_alive
 
 
 
@@ -163,15 +164,15 @@ caves = None
 wumpus_cave = None
 wumpus_alive = None
 
-initial_state()
+initial_state(caves, current_cave, alive, playing, wumpus_cave, wumpus_alive)
 print(alive, playing, current_cave, wumpus_cave, caves[wumpus_cave][2])
 
 while alive and playing and caves[wumpus_cave][2]:
 
-    decision()
+    decision(caves, current_cave, alive, wumpus_cave, wumpus_alive)
     if alive == False or caves[wumpus_cave][2] == False:
        play_again = input("Do you want to play again?")
        if play_again.lower() == "no":
            playing = False
        else:
-           initial_state()
+           initial_state(caves, current_cave, alive, playing, wumpus_cave, wumpus_alive)
