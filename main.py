@@ -2,7 +2,7 @@ import json
 import winsound
 from random import randint
 from pyfiglet import Figlet
-from pprint import pprint
+import colorama
 
 CAVE_BAT = 0
 CAVE_PIT = 1
@@ -45,17 +45,18 @@ def move(connections):
         print("you moved to cave " + str(move_to))
         current_cave = move_to
         if caves[current_cave][CAVE_PIT]:
-            print("You fell into the bottomless pit.")
+            print(colorama.Fore.BLACK + colorama.Back.WHITE + "You fell into the bottomless pit.")
             alive = False
         if move_to is wumpus_cave:
-            print("Before you die, you think you hear the wumpus burp. What bad manners it has.")
+            print(colorama.Back.YELLOW + "Before you die, you think you hear the wumpus burp. What bad manners it has.")
             alive = False
         if caves[current_cave][CAVE_BAT]:
-            print("This cave has bats. You are now going to be carried to a random, safe cave.")
+            print(colorama.Back.MAGENTA + "This cave has bats. You are now going to be carried to a random, safe cave.")
             current_cave = random_dropoff_cave()
     else:
         print("You bump into a wall and hear the wumpus move 1 room.")
         wumpus_cave = random_tunnel(connections)
+    print(colorama.Style.RESET_ALL)
 
 def shoot(connections, caves):
     global wumpus_alive
@@ -69,15 +70,16 @@ def shoot(connections, caves):
         shoot(caves[current_cave][CAVE_CONNECTIONS], caves)
     if shoot_to is wumpus_cave:
         print("")
-        print("You shot the wumpus! You quickly escape and win.")
+        print(colorama.Fore.GREEN + "You shot the wumpus! You quickly escape and win.")
         wumpus_alive = False
     if caves[shoot_to][CAVE_BAT]:
-        print("You shot a bat and feel really bad. You promise to plan the funeral as soon as you kill the wumpus.")
+        print(colorama.Back.BLUE + "You shot a bat and feel really bad. You promise to plan the funeral as soon as you kill the wumpus.")
         caves[shoot_to][CAVE_BAT] = False
     if caves[shoot_to][CAVE_PIT]:
-        print("You killed a pit. You feel weird for breaking the rules of reality and promise to tell someone as soon "
+        print(colorama.Back.WHITE + colorama.Fore.BLACK + "You killed a pit. You feel weird for breaking the rules of reality and promise to tell someone as soon "
               "as you kill the wumpus. The pit fills up and you can walk through it.")
         caves[shoot_to][CAVE_PIT] = False
+    print(colorama.Style.RESET_ALL)
 
 def random_tunnel(connections):
     chosen = randint(0, 3)
@@ -161,7 +163,8 @@ def decision():
 #cave 15 has bats
 
 f = Figlet(font = 'doh', width = 180)
-print(f.renderText('HUNT THE WUMPUS'))
+print(colorama.Fore.LIGHTBLUE_EX + f.renderText('HUNT THE WUMPUS'))
+print(colorama.Style.RESET_ALL)
 
 input("press enter to continue")
 
@@ -207,8 +210,6 @@ wumpus_cave = None
 wumpus_alive = None
 
 initial_state()
-print(alive, playing, current_cave, wumpus_cave, wumpus_alive)
-pprint(caves)
 
 while alive and playing and wumpus_alive:
 
