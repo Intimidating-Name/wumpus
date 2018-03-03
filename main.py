@@ -2,6 +2,7 @@ import json
 import winsound
 from random import randint
 from pyfiglet import Figlet
+from pprint import pprint
 
 CAVE_BAT = 0
 CAVE_PIT = 1
@@ -51,7 +52,7 @@ def move(connections):
             alive = False
         if caves[current_cave][CAVE_BAT]:
             print("This cave has bats. You are now going to be carried to a random, safe cave.")
-            current_cave = random_cave()
+            current_cave = random_dropoff_cave()
     else:
         print("You bump into a wall and hear the wumpus move 1 room.")
         wumpus_cave = random_tunnel(connections)
@@ -61,16 +62,22 @@ def shoot(connections, caves):
     global wumpus_cave
     global CAVE_BAT
     global CAVE_CONNECTIONS
+    global CAVE_PIT
     shoot_to = int(input("Which cave do you want to shoot to?"))
     if shoot_to not in connections:
         print("You cannot shoot there. Try again")
         shoot(caves[current_cave][CAVE_CONNECTIONS], caves)
     if shoot_to is wumpus_cave:
+        print("")
         print("You shot the wumpus! You quickly escape and win.")
         wumpus_alive = False
     if caves[shoot_to][CAVE_BAT]:
         print("You shot a bat and feel really bad. You promise to plan the funeral as soon as you kill the wumpus.")
         caves[shoot_to][CAVE_BAT] = False
+    if caves[shoot_to][CAVE_PIT]:
+        print("You killed a pit. You feel weird for breaking the rules of reality and promise to tell someone as soon "
+              "as you kill the wumpus. The pit fills up and you can walk through it.")
+        caves[shoot_to][CAVE_PIT] = False
 
 def random_tunnel(connections):
     chosen = randint(0, 3)
@@ -156,10 +163,12 @@ def decision():
 f = Figlet(font = 'doh', width = 180)
 print(f.renderText('HUNT THE WUMPUS'))
 
+input("press enter to continue")
+
 print("""
 YOU ARE A FAMOUS HUNTER DESCENDING DOWN INTO THE CAVES OF DARKNESS,
-LAIR OF THE INFAMOUS MAN-EATING WUMPUS.  YOU ARE EQUIPPED WITH FIVE
-BENT ARROWS, AND ALL YOUR SENSES.  THERE ARE TWENTY CAVES CONNECTED
+LAIR OF THE INFAMOUS MAN-EATING WUMPUS.  YOU ARE EQUIPPED WITH INFINITE
+ARROWS, AND ALL YOUR SENSES.  THERE ARE TWENTY-FIVE CAVES CONNECTED
 BY TUNNELS, AND THERE ARE TWO OTHER KINDS OF HAZARDS:
         A) PITS, WHICH ARE BOTTOMLESS, AND USUALLY FATAL TO FALL
         INTO.  THERE IS ONE SUCH PIT IN THE NETWORK.
@@ -171,43 +180,42 @@ BY TUNNELS, AND THERE ARE TWO OTHER KINDS OF HAZARDS:
         SCAVENGING FOR FOOD IN THE PITS.
 IF YOU BLUNDER INTO THE SAME ROOM AS THE WUMPUS, YOU LOSE....
 THE NORMALLY SLEEPING WUMPUS DOES NOT MOVE (HAVING GORGED HIMSELF UPON
-A PREVIOUS HUNTER).  HOWEVER SEVERAL THINGS CAN WAKE HIM UP:
-        1) WALKING INTO HIS ROOM,
-        2) SHOOTING AN ARROW ANYWHERE IN THE NETWORK,
-        3) TRIPPING OVER DEBRIS (CLUMSINESS),
-THE WUMPUS IS TOOBIG TO BE PICKED UP BY SUPER-BATS AND HAS SUCKER FEET, SO HE DOESN'T
+A PREVIOUS HUNTER).  HOWEVER ONE THING CAN WAKE HIM UP:
+        WALKING INTO HIS ROOM,
+THE WUMPUS IS TOO BIG TO BE PICKED UP BY SUPER-BATS AND HAS SUCKER FEET, SO HE DOESN'T
 FALL INTO THE PITS.
-YOU CAN SMELL THE WUMPUS FROM ONE ROOM AWAY.  YOU WILL
-TREMBLE WITH FEAR WHEN HE MOVES ABOUT.  YOU CAN HEAR SUPER-BATS FROM
-ONE ROOM AWAY, AND FEEL DRAFTS (FROM BOTTOMLESS PITS) FROM ONE ROOM
+YOU CAN SMELL THE WUMPUS FROM ONE ROOM AWAY. YOU CAN HEAR SUPER-BATS FROM
+ONE ROOM AWAY, AND FEEL BREEZES (FROM BOTTOMLESS PITS) FROM ONE ROOM
 AWAY.
 TO SHOOT AN ARROW TYPE 's' INSTEAD OF A MOVE, AND THEN
 SPECIFY WHICH ROOM THE ARROW SHOULD PASS THROUGH. YOU CAN ONLY SHOOT INTO THE NEXT ROOM.
-SPECIFY AN IMPOSSIBLE PATH THE ARROW WILL RICOCHET OFF THE WALLS OF
-THE ROOM, LOSING SPEED, AND WILL EVENTUALLY COME TO REST IN ONE OF
-THE ADJOINING ROOMS.
+SPECIFY AN IMPOSSIBLE PATH AND THE ARROW WILL NOT SHOOT.
 EACH ROOM IS CONNECTED TO FOUR OTHER ROOMS BY FOUR TUNNELS.  
 YOU MUST ALWAYS MOVE BETWEEN ROOMS BY SPECIFYING WHICH
 TUNNEL YOU WISH TO EXPLORE.  YOU CAN ALWAYS RETRACE YOUR FOOT STEPS
 BY MOVING BACK USING THE SAME TUNNEL DESIGNATOR.
                 GOOD LUCK HUNTING!!
                 """)
+
+input("press enter to continue")
+
 alive = None
 playing = None
 current_cave = None
 caves = None
-wumpus_cave = None
+wumpus_cave = None 
 wumpus_alive = None
 
 initial_state()
 print(alive, playing, current_cave, wumpus_cave, wumpus_alive)
+pprint(caves)
 
 while alive and playing and wumpus_alive:
 
     decision()
     if alive == False or wumpus_alive == False:
-       play_again = input("Do you want to play again?")
-       if play_again.lower() == "no":
-           playing = False
-       else:
+       play_again = input("Do you want to play again? type yes or no")
+       if play_again.lower() == "yes":
            initial_state()
+       else:
+           playing = False
