@@ -48,4 +48,3 @@ BY MOVING BACK USING THE SAME TUNNEL DESIGNATOR.
 
 # Acknowledgements
 
-I did not create this all on my own. The github user nurikabe (Evan Owens) helped me. I also used sounds from freesound.org. Libraries I used are winsound, colorama, pyfiglet, and random. I used the json format. I wrote this using python 3.6.4.
