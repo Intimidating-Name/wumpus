@@ -22,12 +22,12 @@ def initial_state():
     current_cave = 0
     alive = True
     playing = True
-    wumpus_cave = random_wumpus_cave()
     wumpus_alive = True
-    bat_possible_count = randint(0, 3)
+    wumpus_cave = random_wumpus_cave()
+    bat_possible_count = randint(0, 5)
     for x in range(0, randint(0, bat_possible_count)):
         caves[random_hazzard_cave()][CAVE_BAT] = True
-    pit_possible_count = 3 - bat_possible_count
+    pit_possible_count = randint(0, 5)
     for x in range(0, randint(0, pit_possible_count)):
         caves[random_hazzard_cave()][CAVE_PIT] = True
 
@@ -179,8 +179,7 @@ BY TUNNELS, AND THERE ARE TWO OTHER KINDS OF HAZARDS:
         PICK YOU UP AND DROP YOU IN SOME RANDOM ROOM IN THE NETWORK.
         YOU MAY SHOOT SUPER-BATS, THERE IS ONE IN EACH OF THREE OR
         FOUR ROOMS WITHIN THE NETWORK.  THE SUPER-BATS GENERALLY STAY
-        IN THEIR OWN ROOMS, EXCEPT WHEN DISPOSING OF INTRUDERS OR
-        SCAVENGING FOR FOOD IN THE PITS.
+        IN THEIR OWN ROOMS, EXCEPT WHEN DISPOSING OF INTRUDERS.
 IF YOU BLUNDER INTO THE SAME ROOM AS THE WUMPUS, YOU LOSE....
 THE NORMALLY SLEEPING WUMPUS DOES NOT MOVE (HAVING GORGED HIMSELF UPON
 A PREVIOUS HUNTER).  HOWEVER ONE THING CAN WAKE HIM UP:
