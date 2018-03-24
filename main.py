@@ -216,7 +216,11 @@ while alive and playing and wumpus_alive:
     decision()
     if alive == False or wumpus_alive == False:
        play_again = input("Do you want to play again? type yes or no")
-       if play_again.lower() == "yes":
+       if play_again.lower() is "yes":
+           initial_state()
+       elif play_again.lower() is "magic powers":
+           print("You have found one of two easter eggs. You decide to use your magic powers to resurrect the wumpus and play again.")
+           print("You have won")
            initial_state()
        else:
            playing = False
