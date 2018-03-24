@@ -168,8 +168,6 @@ print(colorama.Style.RESET_ALL)
 
 input("press enter to continue")
 
-winsound.PlaySound("wumpus burp.wav", winsound.SND_FILENAME | winsound.SND_ASYNC)
-
 print("""
 YOU ARE A FAMOUS HUNTER DESCENDING DOWN INTO THE CAVES OF DARKNESS,
 LAIR OF THE INFAMOUS MAN-EATING WUMPUS.  YOU ARE EQUIPPED WITH INFINITE
