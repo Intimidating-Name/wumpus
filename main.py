@@ -4,6 +4,9 @@ from random import randint
 from pyfiglet import Figlet
 import colorama
 
+import os
+import sys
+
 CAVE_BAT = 0
 CAVE_PIT = 1
 CAVE_DESCRIPTION = 2
@@ -200,6 +203,10 @@ BY MOVING BACK USING THE SAME TUNNEL DESIGNATOR.
                 """)
 
 input("press enter to continue")
+
+# Set sys._MEIPASS variable if frozen into an executable by pyinstaller
+if getattr(sys, 'frozen', False):
+    os.chdir(sys._MEIPASS)
 
 alive = None
 playing = None
